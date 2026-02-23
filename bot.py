@@ -393,12 +393,11 @@ async def render_step(cb: CallbackQuery, state: FSMContext, step: str, from_back
     if step == "attach_file":
         is_idea_branch = str(payload.get("branch", "")) == "idea"
         rows = [nav_row()]
-        if not is_idea_branch:
-            rows.insert(0, [InlineKeyboardButton(text="❌ У меня нет файла", callback_data="set:file:нет")])
+        rows.insert(0, [InlineKeyboardButton(text="Пропустить", callback_data="set:file:нет")])
 
         default_text = "Прикрепите STL/3MF/OBJ или фото. Или нажмите кнопку ниже:"
         if is_idea_branch:
-            default_text = "Прикрепите фото или эскиз для заявки. Без фото отправить не получится."
+            default_text = "Прикрепите фото или эскиз для заявки. Если фото нет — нажмите «Пропустить»."
         await send_step_cb(
             cb,
             get_cfg("text_attach_file", default_text),
@@ -722,6 +721,9 @@ async def on_set(cb: CallbackQuery, state: FSMContext) -> None:
     await persist(state)
 
     if field == "technology":
+        if value == "Не знаю":
+            await render_step(cb, state, "attach_file")
+            return
         await render_step(cb, state, "print_material")
         return
 
@@ -829,8 +831,6 @@ async def on_file(message: Message, state: FSMContext) -> None:
     pending_files.append({"file_id": tg_file_id, "file_type": file_type or ""})
     await state.update_data(payload=payload, pending_files=pending_files)
     await persist(state)
-
-    await forward_file_to_orders_chat(message, order_id)
 
     fake_cb = CallbackQuery(id="0", from_user=message.from_user, chat_instance="0", message=message, data="")
     await render_step(fake_cb, state, "review")

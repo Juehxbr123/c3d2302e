@@ -225,9 +225,9 @@ const Orders = () => {
         </Col>
       </Row>
 
-      <Space wrap style={{ marginBottom: 12 }}>
+      <Space wrap style={{ marginBottom: 12, width: '100%' }}>
         <span>Фильтр:</span>
-        <Select allowClear placeholder='Все статусы' style={{ width: 220 }} onChange={setStatusFilter}>
+        <Select allowClear placeholder='Все статусы' style={{ width: isMobile ? '100%' : 220 }} onChange={setStatusFilter}>
           {statusOptions.map((s) => (
             <Option key={s.value} value={s.value}>
               {s.label}
@@ -252,6 +252,7 @@ const Orders = () => {
         onCancel={() => setModalVisible(false)}
         footer={null}
         width={isMobile ? '100%' : 1000}
+        style={isMobile ? { top: 0, paddingBottom: 0 } : undefined}
       >
         {selectedOrder && (
           <Row gutter={[16, 16]}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Statistic, Row, Col, Card } from 'antd';
+import { Button, Statistic, Row, Col, Card, Space } from 'antd';
 import {
   ShoppingCartOutlined,
   SettingOutlined,
@@ -33,8 +33,8 @@ const Dashboard = () => {
     <div className="dashboard-content">
       <h1>📊 Дашборд</h1>
 
-      <Row gutter={16} style={{ marginBottom: 24 }}>
-        <Col span={8}>
+      <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
+        <Col xs={24} md={8}>
           <Card>
             <Statistic
               title="Всего заказов"
@@ -43,7 +43,7 @@ const Dashboard = () => {
             />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col xs={24} md={8}>
           <Card>
             <Statistic
               title="Новых заказов"
@@ -53,7 +53,7 @@ const Dashboard = () => {
             />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col xs={24} md={8}>
           <Card>
             <Statistic
               title="Активных заказов"
@@ -66,20 +66,18 @@ const Dashboard = () => {
       </Row>
 
       <Card title="Быстрые действия" style={{ marginTop: 24 }}>
-        <Button
-          type="primary"
-          icon={<ShoppingCartOutlined />}
-          onClick={() => navigate('/orders')}
-          style={{ marginRight: 8 }}
-        >
-          Просмотр заказов
-        </Button>
-        <Button
-          icon={<SettingOutlined />}
-          onClick={() => navigate('/bot-config')}
-        >
-          Настройки бота
-        </Button>
+        <Space wrap>
+          <Button
+            type="primary"
+            icon={<ShoppingCartOutlined />}
+            onClick={() => navigate('/orders')}
+          >
+            Просмотр заказов
+          </Button>
+          <Button icon={<SettingOutlined />} onClick={() => navigate('/bot-config')}>
+            Настройки бота
+          </Button>
+        </Space>
       </Card>
     </div>
   );
