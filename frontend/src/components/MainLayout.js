@@ -125,7 +125,7 @@ const MainLayout = () => {
             background: '#fff',
             borderRadius: 8,
             minHeight: 280,
-            overflow: 'hidden',
+            overflowX: 'auto',
           }}
         >
           <Outlet />

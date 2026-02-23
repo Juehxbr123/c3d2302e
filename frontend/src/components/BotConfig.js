@@ -97,7 +97,7 @@ const toggleFields = [
 const photoFields = [
   ['photo_main_menu', 'Фото главного меню'],
   ['photo_print', 'Фото ветки печати (общий fallback)'],
-  ['photo_print_fdm', 'Фото для FDM печати'],
+  ['photo_print_fdm', 'Фото для FDM-печати'],
   ['photo_print_resin', 'Фото для фотополимерной печати'],
   ['photo_scan', 'Фото ветки сканирования'],
   ['photo_idea', 'Фото ветки идеи'],
